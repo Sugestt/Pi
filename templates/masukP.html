@@ -1,0 +1,268 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<!-- start section -->
+<section class="section"
+    style="height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px;">
+    <div class="container" style="max-width: 700px; width: 100%; padding: 100px;">
+        <div class="box card p-4">
+            <article class="media">
+                <div class="media-content w-100">
+                    <div class="content">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                <input id="input-username" class="form-control" type="text" placeholder="Masukkan username">
+                                <button id="btn-check-dup" class="btn d-none"
+                                    style="background-color: #af904c; color: white;" onclick="check_dup()">Periksa
+                                    Username</button>
+                            </div>
+                        </div>
+                        <p id="help-id" class="form-text text-muted d-none">Untuk username Anda, silakan masukkan 2-10
+                            karakter, angka, atau karakter khusus berikut (._-).</p>
+                        <p id="help-id-login" class="form-text text-danger"></p>
+
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                <input id="input-password" class="form-control" type="password" placeholder="Masukkan kata sandi">
+                            </div>
+                            <p id="help-password" class="form-text text-muted d-none">Untuk kata sandi Anda, silakan
+                                masukkan 8-20 karakter, angka, atau karakter khusus berikut (!@#$%^&*)</p>
+                        </div>
+                    </div>
+                    <div id="div-sign-in-or-up" class="text-center">
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button class="btn btn-custom-outline mr-2"
+                                onclick="sign_in()">Masuk</button>
+                        </div>
+                        <hr>
+                        <h4 class="mb-3">Jika Anda belum mendaftar</h4>
+                        <button class="btn btn-custom-outline btn-block" onclick="toggle_sign_up()">Daftar</button>
+                    </div>
+
+                    <div id="sign-up-box" class="d-none">
+                        <div class="mb-5">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    <input id="input-password2" class="form-control" type="password"
+                                        placeholder="Konfirmasi kata sandi Anda">
+                                </div>
+                                <p id="help-password2" class="form-text text-muted">Silakan masukkan kata sandi Anda
+                                    lagi</p>
+                            </div>
+                        </div>
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button class="btn btn-custom-outline"
+                                onclick="sign_up()">Daftar</button>
+                            <button class="btn btn-custom-outline" onclick="toggle_sign_up()">Batal</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+<!-- end section -->
+
+<!-- start js -->
+<script>
+    function check_dup() {
+        let inputUsername = $("#input-username");
+        let helpId = $("#help-id");
+        let username = inputUsername.val();
+
+        if (username === "") {
+            helpId.text("Silakan masukkan username Anda")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputUsername.focus();
+            return;
+        }
+
+        if (!is_nickname(username)) {
+            helpId.text("Untuk username Anda, silakan ketik 2-10 karakter bahasa Inggris, angka, atau karakter khusus (._-)")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputUsername.focus();
+            return;
+        }
+
+        helpId.addClass("is-loading");
+
+        $.ajax({
+            type: "POST",
+            url: "/sign_up/check_dup",
+            data: {
+                username_give: username,
+            },
+            success: function (response) {
+                if (response["exists"]) {
+                    helpId.text("Username ini sudah digunakan.")
+                        .removeClass("is-success")
+                        .addClass("is-danger");
+                    inputUsername.focus();
+                } else {
+                    helpId.text("Username ini tersedia untuk digunakan!")
+                        .removeClass("is-danger")
+                        .addClass("is-success");
+                }
+                helpId.removeClass("is-loading");
+            },
+            error: function () {
+                helpId.text("Terjadi kesalahan saat memeriksa username. Silakan coba lagi nanti.")
+                    .removeClass("is-success")
+                    .addClass("is-danger");
+                helpId.removeClass("is-loading");
+            }
+        });
+    }
+
+    function sign_in() {
+        let username = $("#input-username").val();
+        let password = $("#input-password").val();
+
+        if (username === "") {
+            $("#help-id-login").text("Silakan masukkan username Anda.");
+            $("#input-username").focus();
+            return;
+        } else {
+            $("#help-id-login").text("");
+        }
+
+        if (password === "") {
+            $("#help-password").text("Silakan masukkan kata sandi Anda.");
+            $("#input-password").focus();
+            return;
+        } else {
+            $("#help-password").text("");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/sign_in",
+            data: {
+                username_give: username,
+                password_give: password,
+            },
+            success: function (response) {
+                if (response["result"] === "success") {
+                    $.cookie("mytoken", response["token"], { path: "/" });
+                    window.location.replace("/");
+                } else {
+                    alert(response["msg"]);
+                }
+            },
+            error: function () {
+                alert("Terjadi kesalahan saat masuk. Coba lagi nanti.");
+            }
+        });
+    }
+
+    function is_nickname(asValue) {
+        var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
+        return regExp.test(asValue);
+    }
+
+    function is_password(asValue) {
+        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
+        return regExp.test(asValue);
+    }
+
+    function sign_up() {
+        let inputPassword = $("#input-password");
+        let inputPassword2 = $("#input-password2");
+        let username = $("#input-username").val();
+        let password = inputPassword.val();
+        let password2 = inputPassword2.val();
+
+        let helpId = $("#help-id");
+
+        if (helpId.hasClass("is-danger")) {
+            alert("Silakan periksa username Anda");
+            return;
+        } else if (!helpId.hasClass("is-success")) {
+            alert("Harap periksa kembali username Anda");
+            return;
+        }
+
+        let helpPassword = $("#help-password");
+        let helpPassword2 = $("#help-password2");
+
+        if (password === "") {
+            helpPassword.text("Silakan masukkan kata sandi Anda")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputPassword.focus();
+            return;
+        } else if (!is_password(password)) {
+            helpPassword.text("Harap periksa kata sandi Anda. Untuk kata sandi Anda, harap masukkan 8-20 karakter bahasa Inggris, angka, atau karakter khusus berikut (!@#$%^&*)")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputPassword.focus();
+            return;
+        } else {
+            helpPassword.text("Kata sandi ini dapat digunakan!!!")
+                .removeClass("is-danger")
+                .addClass("is-success");
+        }
+
+        if (password2 === "") {
+            helpPassword2.text("Silakan masukkan kata sandi Anda")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputPassword2.focus();
+            return;
+        } else if (password2 !== password) {
+            helpPassword2.text("Kata Sandi anda tidak sama")
+                .removeClass("is-success")
+                .addClass("is-danger");
+            inputPassword2.focus();
+            return;
+        } else {
+            helpPassword2.text("Kata sandi Anda cocok")
+                .removeClass("is-danger")
+                .addClass("is-success");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/sign_up/save",
+            data: {
+                username_give: username,
+                password_give: password,
+            },
+            success: function (response) {
+                alert("Anda sudah terdaftar! Bagus!");
+                window.location.replace("/masukP");
+            },
+        });
+    }
+
+    function toggle_sign_up() {
+        $('#sign-up-box').toggleClass('d-none');
+        $('#div-sign-in-or-up').toggleClass('d-none');
+        $('#btn-check-dup').toggleClass('d-none');
+        $('#help-id').toggleClass('d-none');
+        $('#help-password').toggleClass('d-none');
+    }
+
+    function showHelp(id) {
+        $('#' + id).removeClass('d-none');
+    }
+    function hideHelp(id) {
+        $('#' + id).addClass('d-none');
+    }
+
+    function handleLoginSuccess(token) {
+        localStorage.setItem('token', token);
+        window.location.href = '/';
+    }
+
+    document.cookie = "token=your-token-here; path=/";
+</script>
+<!-- end js -->
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}

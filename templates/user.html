@@ -1,0 +1,55 @@
+{% include 'headerA.html' %}
+
+{% include 'sidebar.html' %}
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Data Transaksi Pembeli</h1>
+  </div><!-- End Page Title -->
+
+  <div class="tabel mt-4">
+    <div class="card border-0 shadow mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-centered table-nowrap mb-0 rounded mt-3">
+            <thead class="thead-light">
+              <tr>
+                <th class="border-0 rounded-start">No</th>
+                <th class="border-0">Nama Serum</th>
+                <th class="border-0">Harga Satuan</th>
+                <th class="border-0">Akun Pengguna</th>
+                <th class="border-0">Nama Pembeli</th>
+                <th class="border-0">Nomor Telepon</th>
+                <th class="border-0">Alamat</th>
+                <th class="border-0">Jumlah</th>
+                <th class="border-0">Bukti Transfer</th>
+              </tr>
+            </thead>
+            {% for transaksi in users %}
+            {% set serum = serums[transaksi.serum_id] %}
+            <tr>
+              <td>{{loop.index}}</td>
+              <td>{{serum.nama_serum}}</td>
+              <td>{{serum.harga}}</td>
+              <td>{{transaksi.username}}</td>
+              <td>{{transaksi.nama}}</td>
+              <td>{{transaksi.telepon}}</td>
+              <td>{{transaksi.alamat}}</td>
+              <td>{{transaksi.quantity}}</td>
+              <td>
+                <a href="{{ url_for('download_file', filename=transaksi.bukti_transfer) }}" download>
+                    Unduh Bukti Transfer
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</main><!-- End #main -->
+
+{% include 'footerA.html' %}

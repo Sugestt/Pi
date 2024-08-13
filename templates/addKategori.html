@@ -1,0 +1,47 @@
+{% include 'headerA.html' %}
+
+{% include 'sidebar.html' %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Kategori Serum Baru</h1>
+    </div><!-- End Page Title -->
+    <br>
+    <div class="card border-0 shadow mb-4 ">
+        <div class="card-body mt-4">
+            <div class="table-responsive">
+                <form action="/tmbhKategori" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Gambar</label>
+                        <input type="file" class="form-control" accept=".png,.jpg,.jpeg" name="gambar"
+                            style="border-radius: 13px;" placeholder="Masukkan gambar" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="kategori_serum" class="form-label">Kategori Serum</label>
+                        <input type="text" class="form-control" id="kategori_serum" name="kategori_serum" style="border-radius: 13px;"
+                            placeholder="Masukkan nama kategori serum" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="route" class="form-label">Rute</label>
+                        <input type="text" class="form-control" id="route" name="route" style="border-radius: 13px;"
+                            placeholder="Masukkan rute kategori serum" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Deskripsi Kategori</label>
+                        <textarea class="form-control" name="deskripsi" style="border-radius: 13px;"
+                            placeholder="Masukkan deskripsi kategori serum" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-end">
+                            <a href="/kategoriadm" class="btn" style="background-color: #af904c; color: white;">Batal</a>
+                            <button type="submit" class="btn ms-2" style="background-color: #af904c; color: white;">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+
+{% include 'footerA.html' %}

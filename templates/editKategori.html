@@ -1,0 +1,52 @@
+{% include 'headerA.html' %}
+
+{% include 'sidebar.html' %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Edit Kategori Serum</h1>
+    </div><!-- End Page Title -->
+    <br>
+    <div class="card border-0 shadow mb-4 ">
+        <div class="card-body mt-4">
+            <div class="table-responsive">
+                <form action="/editKategori/{{data._id}}" method="post" enctype="multipart/form-data">
+                    <input type="text" name="id" value="{{data._id}}" hidden>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Gambar</label>
+                        <br>
+                        <img id="gambar-preview" src="../static/images/{{data.gambar}}" alt="" width="200">
+                        <input type="file" class="form-control" accept=".png,.jpg,.jpeg" name="gambar"
+                            style="border-radius: 13px;" placeholder="Masukkan gambar" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="kategori_serum" class="form-label">Kategori Serum</label>
+                        <input type="text" class="form-control" name="kategori_serum" value="{{data.kategori_serum}}"
+                            style="border-radius: 13px;" placeholder="Masukkan kategori serum" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="route" class="form-label">Rute</label>
+                        <input type="text" class="form-control" name="route" value="{{data.route}}"
+                            style="border-radius: 13px;" placeholder="Masukkan rute kategori serum" required />
+                    </div>                    
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" style="border-radius: 13px;"
+                            placeholder="Masukkan deskripsi kategori" required>{{data.deskripsi_kategori}}
+                            </textarea>
+                    </div>
+                    <div class="mb-3 ">
+                        <div class="d-flex justify-content-end">
+                            <a href="/kategoriadm" class="btn" style="background-color: #af904c; color: white;">Batal</a>
+                            <button type="submit" class="btn ms-2"
+                                style="margin-left: 90%; background-color: #af904c; color: white;">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+
+{% include 'footerA.html' %}

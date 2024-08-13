@@ -1,0 +1,26 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6" style="padding: 10px;">
+            <img src="{{ url_for('static', filename='images/' ~ serum.gambar) }}" class="img-fluid" alt="{{ serum.nama }}">
+        </div>
+        <div class="col-md-6" style="padding: 50px;">
+            <h1 class="mb-3">{{ serum.nama_serum }}</h1>
+            <h3 class="mb-3">Rp {{ serum.harga }}</h3>
+            <p>{{ serum.deskripsi }}</p>
+            <form action="{{ url_for('transaksi_form') }}" method="POST">
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Jumlah</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" max="5">
+                </div>
+                <input type="hidden" name="serum_id" value="{{ serum._id }}">
+                <button type="submit" class="btn btn-custom-outline">Beli Sekarang</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}

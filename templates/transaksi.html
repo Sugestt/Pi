@@ -1,0 +1,62 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6" style="padding: 20px;">
+            <img src="{{ url_for('static', filename='images/' ~ serum.gambar) }}" class="img-fluid" alt="{{ serum.nama }}">
+        </div>
+        <div class="col-md-6" style="padding: 30px;">
+            <h1 class="mb-3">{{ serum.nama_serum }}</h1>
+            <h3 class="mb-3">Rp {{ serum.harga }}</h3>
+            <p class="mb-3">{{ serum.deskripsi }}</p>
+            <h5 class="mb-2">Jumlah: {{ quantity }}</h5>
+            <h5 class="mb-2">Total Pembayaran: Rp {{ total_pembayaran }}</h5>
+            <h5 class="mb-2">Nomor Rekening Penjual:</h5>
+            <h6 class="mb-2">SUGESTI PANGESTUTI</h6>
+            <h6>Bank Mandiri - 1670006338676</h6>
+        <br>
+            <form id="payment-form" action="/transaksi" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nama">Nama Pelanggan</label>
+                    <input type="text" id="nama" name="nama" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telepon">Nomor Telepon</label>
+                    <input type="text" id="telepon" name="telepon" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="alamat">Alamat</label>
+                    <textarea id="alamat" name="alamat" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="bukti_transfer">Foto Bukti Transfer</label>
+                    <input type="file" id="bukti_transfer" name="bukti_transfer" class="form-control" required>
+                </div>
+                <input type="hidden" name="serum_id" value="{{ serum._id }}">
+                <input type="hidden" name="quantity" value="{{ quantity }}">
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-custom-outline">Konfirmasi Pembayaran</button>
+                    <a href="{{ url_for('detail', _id=serum._id) }}" class="btn btn-custom-outline">Batal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('payment-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var form = this;
+
+        alert('Transaksi berhasil');
+
+        setTimeout(function () {
+            form.submit();
+        }, 1000);
+    });
+</script>
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}

@@ -1,0 +1,60 @@
+{% include 'headerA.html' %}
+
+{% include 'sidebar.html' %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Edit Pesanan</h1>
+    </div><!-- End Page Title -->
+    <br>
+    <div class="card border-0 shadow mb-4 ">
+        <div class="card-body mt-4">
+            <div class="table-responsive">
+                <form action="/editPesanan/{{data._id}}" method="post" enctype="multipart/form-data">
+                    <input type="text" name="id" value="{{data._id}}" hidden>
+                    <div class="mb-3">
+                        <label for="nama_serum" class="form-label">Nama Serum</label>
+                        <input type="text" class="form-control" id="nama_serum" name="nama_serum" value="{{data.nama_serum}}"
+                            style="border-radius: 13px;" placeholder="Masukkan nama serum" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Akun Pengguna</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{data.username}}"
+                            style="border-radius: 13px;" placeholder="Masukkan nama akun pembeli" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Pelanggan</label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{data.nama}}"
+                            style="border-radius: 13px;" placeholder="Masukkan nama pelanggan" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="jasa_kirim" class="form-label">Jasa Kirim</label>
+                        <input type="text" class="form-control" id="jasa_kirim" name="jasa_kirim" value="{{data.jasa_kirim if data.jasa_kirim else ''}}"
+                            style="border-radius: 13px;" placeholder="Masukkan jasa kirim" required />
+                    </div>                    
+                    <div class="mb-3">
+                        <label for="nomor_resi" class="form-label">Nomor Resi</label>
+                        <input type="text" class="form-control" id="nomor_resi" name="nomor_resi" value="{{data.nomor_resi if data.nomor_resi else ''}}"
+                            style="border-radius: 13px;" placeholder="Masukkan nomor resi" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="keterangan" class="form-label">Keterangan</label>
+                        <select class="form-control" id="keterangan" name="keterangan" style="border-radius: 13px;" required>
+                            <option value="" disabled {{ 'selected' if not data.keterangan else '' }}>Pilih keterangan</option>
+                            <option value="sedang diproses" {{ 'selected' if data.keterangan == 'sedang diproses' else '' }}>Sedang diproses</option>
+                            <option value="dikirim" {{ 'selected' if data.keterangan == 'dikirim' else '' }}>Dikirim</option>
+                            <option value="telah tiba" {{ 'selected' if data.keterangan == 'telah tiba' else '' }}>Telah tiba</option>
+                        </select>
+                    </div>                    
+                    <div class="mb-3 ">
+                        <div class="d-flex justify-content-end">
+                            <a href="/pesananadm" class="btn" style="background-color: #af904c; color: white;">Batal</a>
+                            <button type="submit" class="btn ms-2"
+                                style="margin-left: 90%; background-color: #af904c; color: white;">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+</main><!-- End #main -->
+
+{% include 'footerA.html' %}

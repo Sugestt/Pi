@@ -1,0 +1,25 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<div class="container px-4 py-5">
+    <div class="kategori-container" style="padding: 50px;">
+        <h2 class="pb-2 border-bottom">Kategori Serum Wajah</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="padding: 20px;">
+            {% for kategori in kategoris %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='images/' ~ kategori.gambar) }}" class="card-img-top" alt="{{ kategori.kategori_serum }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ kategori.kategori_serum }}</h5>
+                        <p class="card-text" style="text-align: justify;">{{ kategori.deskripsi_kategori }}</p>
+                        <a href="{{ url_for('kategori_detail', kategori_name=kategori.route) }}" class="btn btn-custom-outline">Lihat Serum</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}

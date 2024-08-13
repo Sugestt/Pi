@@ -1,0 +1,32 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<!-- start card product -->
+<div class="container py-5">
+    <h2 class="pb-2 border-bottom" style="padding: 30px;">EXFOLIATING SERUM</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        {% for serum in serums %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='images/' ~ serum.gambar) }}" class="card-img-top" alt="{{ serum.nama_serum }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ serum.nama_serum }}</h5>
+                    <p class="card-text">Rp {{ serum.harga }}</p>
+                    <div class="d-flex justify-content-end">
+                        {% if user_info %}
+                            <a href="{{ url_for('detail', _id=serum._id) }}" class="btn btn-custom-outline">Beli Sekarang</a>
+                        {% else %}
+                            <a href="{{ url_for('masukP') }}" class="btn btn-custom-outline">Login untuk Membeli</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- end card product -->
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}

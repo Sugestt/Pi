@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.navbar-logo {
+  width: 200px;
+  height: auto;
+  padding-left: 20px;
+}
+
+.navbar-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav {
+  margin: 0 auto;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.shopping-bag-icon {
+  margin-right: 30px;
+}
+
+.v-overlay__scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.8);
+  z-index: 1040;
+}
+
+.slider_container img {
+  height: 500px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-img-top {
+  aspect-ratio: 1 / 1;
+  max-height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-title {
+  font-weight: bold;
+  color: #af904c;
+}
+
+.card-text {
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+  }
+}
+
+.content {
+  flex: 1;
+}
+
+/*ini yg diubah*/
+.mg_section {
+  padding: 60px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heading_container {
+  margin-bottom: 40px;
+}
+
+.heading_container h2 {
+  font-size: 36px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-md-4 {
+  flex: 1;
+  max-width: 33.3333%;
+  box-sizing: border-box;
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+
+.box {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img-box {
+  margin-bottom: 20px;
+}
+
+.img-box svg {
+  width: 100px;
+  height: 100px;
+}
+
+.detail-box h5 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.detail-box p {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .col-md-4 {
+      max-width: 100%;
+  }
+}
+/* akhir dari yg diubah */
+
+.box {
+  background: #fff;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.box:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.same-height {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+  /* Anda bisa menyesuaikan tinggi minimum sesuai kebutuhan */
+}
+
+.img-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.detail-box {
+  text-align: center;
+}
+
+.same-height h5 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.same-height p {
+  margin-bottom: 0;
+}
+
+.my-svg {
+  width: 100px;
+  /* Adjust the width as needed */
+  height: 100px;
+  /* Adjust the height as needed */
+  fill: #af7c4c;
+  /* Initial fill color */
+  stroke: #8e6938;
+  /* Stroke color */
+  stroke-width: 2;
+  transition: all 0.3s ease-in-out;
+  /* Smooth transition for hover effects */
+}
+
+.my-svg:hover {
+  fill: #a3804c;
+  /* Fill color on hover */
+  stroke: #cc9f5c;
+  /* Stroke color on hover */
+  transform: scale(1.1);
+  /* Slightly increase the size on hover */
+}
+
+.my-svg-shadow {
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+  /* Add shadow */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dasar untuk SVG */
+.svg-container {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Warna dan Gaya Border */
+.svg-border {
+  border: 3px solid #a3803e;
+}
+
+/* Hover Effect */
+.svg-border:hover {
+  border-color: #c7a981;
+  transform: scale(1.05);
+}
+
+/* Animasi Border */
+@keyframes borderAnimation {
+  0% {
+    border-color: #af874c;
+  }
+
+  50% {
+    border-color: #c7ae81;
+  }
+
+  100% {
+    border-color: #af874c;
+  }
+}
+
+.animated-border {
+  animation: borderAnimation 2s infinite;
+}
+
+/* Gradient Border */
+.gradient-border {
+  border: 3px solid;
+  border-image: linear-gradient(45deg, #af904c, #c7b181) 1;
+}
+
+/* Dashed Border */
+.dashed-border {
+  border: 3px dashed #af904c;
+}
+
+/* Dotted Border */
+.dotted-border {
+  border: 3px dotted #af904c;
+}
+
+/* Double Border */
+.double-border {
+  border: 5px double #af904c;
+}
+
+.container_kontak {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 85%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.container_kontak h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact-info {
+  text-align: left;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  /* Item kontak diatur agar penyelarasannya seragam */
+  margin-bottom: 15px;
+}
+
+.contact-item i {
+  font-size: 24px;
+  color: #7e5c36;
+  margin-right: 15px;
+}
+
+.contact-item p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.contact-item p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-item p a:hover {
+  text-decoration: underline;
+}
+
+.btn-custom-outline {
+  color: #af904c;
+  border-color: #af904c;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-custom-outline:hover {
+  background-color: #af904c;
+  color: white;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.btn-container {
+  margin-top: auto;
+}
+
+.product-detail {
+  padding: 20px;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+  color: #fff;
+}
+
+footer {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #343a40;
+  }
+
+  .navbar-collapse .navbar-nav .nav-link {
+    color: #ffffff;
+  }
+
+  .navbar-collapse .navbar-nav .nav-link:hover {
+    color: #ffc107;
+  }
+}

@@ -1,0 +1,39 @@
+<!-- Jinja Header -->
+{% include 'header.html' %}
+
+<!-- Order Table section starts -->
+<div class="container mt-5 pt-5">
+    <h2 class="mb-4">Pesanan Saya</h2>
+    <div class="table" style="padding: 85px;">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Gambar Serum</th>
+                        <th>Nama Serum</th>
+                        <th>Jasa Kirim</th>
+                        <th>Nomor Resi</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pesanan in pesanan_list %}
+                    {% set serum = serums.get(pesanan.serum_id) %}
+                    <tr>
+                        <td><img src="{{ url_for('static', filename='images/' ~ serum.gambar) }}"
+                                alt="Gambar Serum" class="img-fluid" style="max-width: 100px;"></td>
+                        <td>{{ serum.nama_serum }}</td>
+                        <td>{{ pesanan.jasa_kirim }}</td>
+                        <td>{{ pesanan.nomor_resi }}</td>
+                        <td>{{ pesanan.keterangan }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Order Table section ends -->
+
+<!-- Jinja Footer -->
+{% include 'footer.html' %}
